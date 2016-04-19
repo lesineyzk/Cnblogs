@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[BlogAdapter parser:didEndElement:namespaceURI:qualifiedName:]:BlogAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.blogInfo">
+            </PersistentString>
+            <PersistentString
+               value = "self.blogInfosArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogAdapter setImportRecommandInfo:]:BlogAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "((ImportantRecommandBlog *)improtantRecommand[0]).blogId">
+            </PersistentString>
+            <PersistentString
+               value = "[element.attributes objectForKey:@&quot;href&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "main:main.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogAdapter setBlogsInfo:]:BlogAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "((TFHppleElement *)blogsContentElements[0]).children">
+            </PersistentString>
+            <PersistentString
+               value = "blogContentElement.children">
+            </PersistentString>
+            <PersistentString
+               value = "blogElement.children">
+            </PersistentString>
+            <PersistentString
+               value = "((TFHppleElement *)recommandCountElements[0]).children">
+            </PersistentString>
+            <PersistentString
+               value = "((TFHppleElement *)((TFHppleElement *)blogsCommentElements[0]).children[0]).content">
+            </PersistentString>
+            <PersistentString
+               value = "blogContentElement.raw">
+            </PersistentString>
+            <PersistentString
+               value = "((TFHppleElement *)blogsTitleElements[0]).attributes">
+            </PersistentString>
+            <PersistentString
+               value = "((TFHppleElement *)((TFHppleElement *)((TFHppleElement *)blogsContentElements[1]).children[1]).children[0]).attributes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__60-[NetworkingAPI getRequestDataWithPath:withParams:andBlock:]_block_invoke:NetworkingAPI.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(NSData *)encodedString">
+            </PersistentString>
+            <PersistentString
+               value = "((TFHppleElement *)((TFHppleElement *)elements[1]).children[0]).content">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogsTableViewController tableView:cellForRowAtIndexPath:]:BlogsTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currentBlogInfos">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+            <PersistentString
+               value = "[GlobalData getImportentRecommandArray]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[HomePageAdapter setImportRecommandInfo:]:HomePageAdapter.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogsContentTableViewCell setInfoViewData:]:BlogsContentTableViewCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "infos">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogMainViewController layoutSubViewControllers]:BlogMainViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogsTableViewController tableView:didSelectRowAtIndexPath:]:BlogsTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogMainViewController layoutHeaderView]:BlogMainViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[blogTypeDictionary objectForKey:blogTypeKey]">
+            </PersistentString>
+            <PersistentString
+               value = "[blogTypeDictionary allKeys]">
+            </PersistentString>
+            <PersistentString
+               value = "button.tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogAdapter parser:foundCharacters:]:BlogAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.blogInfo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[HomePageAdapter setBlogsInfo:]:HomePageAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "((TFHppleElement *)recommandCountElements[i]).attributes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogAdapter parser:didStartElement:namespaceURI:qualifiedName:attributes:]:BlogAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.blogInfo">
+            </PersistentString>
+            <PersistentString
+               value = "attributeDict">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ImportantRecommandTableViewCell layoutSubviews]:ImportantRecommandTableViewCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "index1">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__60-[NetworkingAPI getRequestDataWithPath:withParams:andBlock:]_block_invoke18:NetworkingAPI.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogsTableViewController viewDidLoad]:BlogsTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tabBarItem">
+            </PersistentString>
+            <PersistentString
+               value = "self.tabBarController.tabBar">
+            </PersistentString>
+            <PersistentString
+               value = "self.navigationItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BlogMainViewController didClickHeadButtonAction:]:BlogMainViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[blogTypeDictionary objectForKey:@&quot;&#x9996;&#x9875;&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "(int)[blogTypeDictionary objectForKey:@&quot;&#x9996;&#x9875;&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
