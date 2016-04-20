@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SDImageCache.h"
 
 @interface AppDelegate ()
 
@@ -16,8 +17,28 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [self clearTmpPics];
+    
+
     return YES;
+}
+
+#pragma clear SDWebImage Cache
+- (void)clearTmpPics
+{
+    [self clearSDWebImageCache];
+    [[SDImageCache sharedImageCache] clearDisk];
+    [[SDImageCache sharedImageCache] clearMemory];//可有可无
+    [self clearSDWebImageCache];
+}
+
+- (void)clearSDWebImageCache {
+    
+    float tmpSize = [[SDImageCache sharedImageCache] getSize];
+    tmpSize = tmpSize / 1024.0 / 1024.0;
+    NSString *clearCacheName = tmpSize >= 1 ? [NSString stringWithFormat:@"%.1fM",tmpSize] : [NSString stringWithFormat:@"%.1fK",tmpSize * 1024];
+    NSLog(@"%@",clearCacheName);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

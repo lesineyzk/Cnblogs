@@ -7,6 +7,7 @@
 //
 
 #import "BlogsContentTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface BlogsContentTableViewCell()
 
@@ -36,20 +37,24 @@
 }
 
 - (void)setBlogViewData:(BlogInfo *)blogInfo {
-    NSURL *imageUrl = [NSURL URLWithString:blogInfo.blogAuthorLogoHttpAddress];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
-    self.blogHeadLogoImg.image = image;
+    
+    [self setBlogHeadLogoImgByURL:blogInfo.blogAuthorLogoHttpAddress];
     
     [self.authorButton setTitle:blogInfo.blogAuthor forState:UIControlStateNormal];
 }
 
 - (void)setNewsViewData:(NewsInfo *)newsInfo {
     
-    NSURL *imageUrl = [NSURL URLWithString:newsInfo.newsTopicIcon];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
-    self.blogHeadLogoImg.image = image;
+    [self setBlogHeadLogoImgByURL:newsInfo.newsTopicIcon];
     
     [self.authorButton setTitle:newsInfo.newsSource forState:UIControlStateNormal];
+}
+
+- (void)setBlogHeadLogoImgByURL:(NSString *)url {
+    
+    [self.blogHeadLogoImg sd_setImageWithURL:[NSURL URLWithString:url]
+                      placeholderImage:nil];
+    
 }
 
 - (void)setBlogAndNewsViewData:(BlogAndNewsInfo *) blogAndNewsInfo {

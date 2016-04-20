@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8AFDEFFC39A99CB983ABB2CB'
+               BlueprintIdentifier = 'FEFF4D0936EC128B1E00E739'
                BlueprintName = 'NSStringEmojize'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libNSStringEmojize.a'>

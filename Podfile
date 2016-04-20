@@ -8,6 +8,7 @@ pod "AFNetworking", "~> 3.0"
 pod "NSStringEmojize","~>0.2.0"
 pod "hpple","0.2.0"
 pod "Masonry","~>0.6.4"
+pod "SDWebImage","~>3.7.5"
 
 end
 
