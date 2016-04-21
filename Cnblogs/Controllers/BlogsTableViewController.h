@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewBaseViewController.h"
 
-@interface BlogsTableViewController : TableViewBaseViewController
+@interface BlogsTableViewController : UITableViewController
 
 
 

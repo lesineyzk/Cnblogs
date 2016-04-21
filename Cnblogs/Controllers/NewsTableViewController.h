@@ -5,9 +5,8 @@
 //  Created by lesiney on 16/4/11.
 //  Copyright © 2016年 LongHairPig. All rights reserved.
 //
+#import <UIKit/UIKit.h>
 
-#import "TableViewBaseViewController.h"
-
-@interface NewsTableViewController : TableViewBaseViewController
+@interface NewsTableViewController : UITableViewController
 
 @end

@@ -6,14 +6,14 @@
 //  Copyright © 2016年 LongHairPig. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "BlogAdapter.h"
 #import "NewsAdapter.h"
 #import "Enum.h"
+#import <UIKit/UIKit.h>
 
 
 
-@interface BlogBodyViewController : BaseViewController
+@interface BlogBodyViewController : UIViewController
 
 @property (nonatomic,strong) NSString *blogId;
 

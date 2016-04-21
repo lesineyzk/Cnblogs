@@ -32,6 +32,7 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
 @implementation BlogsTableViewController {
     BOOL isLoadHomePage;
     BOOL isLoadBlogInfo;
+    NSLock *_lock;
 }
 
 
@@ -40,6 +41,8 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
     
     isLoadBlogInfo = NO;
     isLoadHomePage = NO;
+    //初始化锁对象
+    _lock=[[NSLock alloc]init];
     
     self.homePageAdapter = [[HomePageAdapter alloc]init];
     self.blogAdapter = [BlogAdapter new];
@@ -49,17 +52,11 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
     __weak typeof(self) weakSelf = self;
     [self.homePageAdapter setHomePageBlogsInfo:^{
         isLoadHomePage = YES;
-        if (isLoadHomePage && isLoadBlogInfo) {
-            [weakSelf.tableView reloadData];
-        }
     }];
     
     [self.blogAdapter getBlogInfosByPageIndex:@"1" andPageSize:@"20" andBlock:^(NSMutableArray *blogInfos) {
         weakSelf.currentBlogInfos = blogInfos;
         isLoadBlogInfo = YES;
-        if (isLoadHomePage && isLoadBlogInfo) {
-            [weakSelf.tableView reloadData];
-        }
     }];
     
     
@@ -67,6 +64,18 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
     [self.tableView registerNib:blogContentNib forCellReuseIdentifier:blogContentCellIdentifier];
     [self.tableView registerClass:[ImportantRecommandTableViewCell class] forCellReuseIdentifier:recommandBlogCellIdentifier];
     
+    
+}
+
+- (void)reloadTableViewData {
+    
+    //加锁
+    [_lock lock];
+    if (isLoadHomePage && isLoadBlogInfo) {
+        [self.tableView reloadData];
+    }
+    //使用完解锁
+    [_lock unlock];
     
 }
 
