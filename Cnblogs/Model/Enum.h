@@ -21,4 +21,11 @@ typedef NS_ENUM(NSInteger, BlogDisplayContent) {
     BlogDisplayContentCandidate//候选
 };
 
+typedef NS_ENUM(NSInteger, HomePageDisplayContent) {
+    HomePageDisplayContentFrist = 0, //首页
+    HomePageDisplayContentEssence,//精华
+    HomePageDisplayContentCandidate,//候选
+    HomePageDisplayContentNews//新闻
+};
+
 @end

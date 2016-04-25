@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Enum.h"
 
 @interface HomePageAdapter : NSObject
+
+- (HomePageAdapter *)initWithHomePageType :(HomePageDisplayContent)homePageDisplayContent;
 
 - (void)setHomePageBlogsInfo:(void (^)(void))block;
 

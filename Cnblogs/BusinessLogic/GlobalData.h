@@ -13,4 +13,16 @@
 + (NSMutableArray *)getImportentRecommandArray;
 + (void)setImportRecommandArray:(NSMutableArray *) _importantRecommandArray;
 
++ (NSMutableArray *)getBlogsInfoArray;
++ (void)setBlogsInfoArray:(NSMutableArray *) _blogsInfoArray;
+
++ (NSMutableArray *)getBlogsPickInfoArray;
++ (void)setBlogsPickInfoArray:(NSMutableArray *) _blogsPickInfoArray;
+
++ (NSMutableArray *)getBlogsCandidateInfoArray;
++ (void)setBlogsCandidateInfoArray:(NSMutableArray *) _blogsCandidateInfoArray;
+
++ (NSMutableArray *)getNewsInfoArray;
++ (void)setNewsInfoArray:(NSMutableArray *) _newsInfoArray;
+
 @end

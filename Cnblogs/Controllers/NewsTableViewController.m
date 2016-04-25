@@ -11,32 +11,81 @@
 #import "NewsInfo.h"
 #import "NewsAdapter.h"
 #import "BlogBodyViewController.h"
+#import "HomePageAdapter.h"
+#import "GlobalData.h"
+#import "Enum.h"
 
 static NSString *blogContentCell= @"BlogsContentTableViewCell";
 static NSString *blogContentCellIdentifier= @"BlogsContentTableViewCellIdentifier";
 
 @interface NewsTableViewController ()
 
-@property (strong,nonatomic) NewsAdapter *newsAdapter;
+//@property (strong,nonatomic) NewsAdapter *newsAdapter;
+@property (strong,nonatomic) HomePageAdapter *homePageAdapter;
 
 @property (strong,nonatomic) NSMutableArray *currentNewsInfos;
+
+@property (assign,nonatomic) HomePageDisplayContent currentHomePageDisplayContent;
 
 @end
 
 @implementation NewsTableViewController
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    
+    if(self = [super initWithCoder:aDecoder]){
+        self.currentHomePageDisplayContent = HomePageDisplayContentNews;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithHomePageType :(HomePageDisplayContent)homePageDisplayContent
+{
+    if(self = [super init]){
+        
+        self.currentHomePageDisplayContent = homePageDisplayContent;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.newsAdapter = [NewsAdapter new];
+    //    self.newsAdapter = [NewsAdapter new];
+    //    [self.newsAdapter getNewInfosByPageIndex:@"1" andPageSize:@"10" andBlock:^(NSMutableArray *blogInfos) {
+    //        weakSelf.currentNewsInfos = blogInfos;
+    //        [weakSelf.tableView reloadData];
+    //    }];
     
     __weak typeof(self) weakSelf = self;
     
-    [self.newsAdapter getNewInfosByPageIndex:@"1" andPageSize:@"10" andBlock:^(NSMutableArray *blogInfos) {
-        weakSelf.currentNewsInfos = blogInfos;
+    self.homePageAdapter = [[HomePageAdapter alloc] initWithHomePageType:self.currentHomePageDisplayContent];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    [self.homePageAdapter setHomePageBlogsInfo:^{
+        
+        switch (weakSelf.currentHomePageDisplayContent) {
+            case HomePageDisplayContentFrist :
+                weakSelf.currentNewsInfos = [GlobalData getBlogsInfoArray];
+                break;
+            case HomePageDisplayContentEssence :
+                weakSelf.currentNewsInfos = [GlobalData getBlogsPickInfoArray];
+                break;
+            case HomePageDisplayContentCandidate :
+                weakSelf.currentNewsInfos = [GlobalData getBlogsCandidateInfoArray];
+                break;
+            case HomePageDisplayContentNews :
+                weakSelf.currentNewsInfos = [GlobalData getNewsInfoArray];
+                break;
+            default:
+                break;
+        }
+        
         [weakSelf.tableView reloadData];
     }];
-    
     
     UINib *blogContentNib = [UINib nibWithNibName:blogContentCell bundle:nil];
     [self.tableView registerNib:blogContentNib forCellReuseIdentifier:blogContentCellIdentifier];
@@ -65,7 +114,7 @@ static NSString *blogContentCellIdentifier= @"BlogsContentTableViewCellIdentifie
         return nil;
     }
     
-    NewsInfo *newsInfo = ((NewsInfo *)(self.currentNewsInfos[indexPath.row]));
+    BlogAndNewsInfo *newsInfo = ((BlogAndNewsInfo *)(self.currentNewsInfos[indexPath.row]));
     
     BlogsContentTableViewCell *contentCell=[tableView dequeueReusableCellWithIdentifier:blogContentCellIdentifier forIndexPath:indexPath];
     [contentCell setInfoViewData:(id)newsInfo];
@@ -75,11 +124,16 @@ static NSString *blogContentCellIdentifier= @"BlogsContentTableViewCellIdentifie
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NewsInfo *newsInfo = ((NewsInfo *)(self.currentNewsInfos[indexPath.row]));
+    BlogAndNewsInfo *newsInfo = ((BlogAndNewsInfo *)(self.currentNewsInfos[indexPath.row]));
     
     BlogBodyViewController *blogBodyViewController = [BlogBodyViewController new];
     blogBodyViewController.blogId = newsInfo.blogId;
-    blogBodyViewController.contentType = WebViewDisplayTypeNews;
+    
+    if (self.currentHomePageDisplayContent == HomePageDisplayContentNews) {
+        blogBodyViewController.contentType = WebViewDisplayTypeNews;
+    } else {
+        blogBodyViewController.contentType = WebViewDisplayTypeBlog;
+    }
     
     blogBodyViewController.blogTitle = newsInfo.blogTitle;
     

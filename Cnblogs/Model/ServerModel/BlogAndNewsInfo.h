@@ -16,4 +16,6 @@
 
 @property (readwrite,nonatomic,strong) NSString *commentCount, *readCount, *blogDate;
 
+@property (readwrite,nonatomic,strong) NSString *blogAuthor, *blogAuthorLogoHttpAddress;
+
 @end

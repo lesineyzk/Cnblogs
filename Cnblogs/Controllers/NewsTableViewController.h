@@ -6,7 +6,10 @@
 //  Copyright © 2016年 LongHairPig. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "Enum.h"
 
 @interface NewsTableViewController : UITableViewController
+
+- (instancetype)initWithHomePageType :(HomePageDisplayContent)homePageDisplayContent;
 
 @end

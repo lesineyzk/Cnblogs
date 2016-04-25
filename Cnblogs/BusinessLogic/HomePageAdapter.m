@@ -14,6 +14,7 @@
 #import "IdConvertToSome.h"
 #import "NetworkingAPI.h"
 #import "BlogInfo.h"
+#import "Enum.h"
 
 typedef void(^TestBlock)(id data,NSError *error);
 
@@ -23,12 +24,36 @@ typedef void(^TestBlock)(id data,NSError *error);
 
 @end
 
-@implementation HomePageAdapter
+@implementation HomePageAdapter {
+    
+    NSMutableString *httpAddress;
+    BOOL isLoadBaseInfo;
+    HomePageDisplayContent currentHomePageDisplayContent;
+    
+}
 
-- (HomePageAdapter *)init
+- (HomePageAdapter *)initWithHomePageType :(HomePageDisplayContent)homePageDisplayContent
 {
     if(self = [super init]){
-        
+        isLoadBaseInfo = NO;
+        httpAddress = [NSMutableString stringWithString: @"http://www.cnblogs.com"];
+        currentHomePageDisplayContent = homePageDisplayContent;
+        switch (homePageDisplayContent) {
+            case HomePageDisplayContentFrist :
+                isLoadBaseInfo = YES;
+                break;
+            case HomePageDisplayContentEssence :
+                [httpAddress appendFormat:@"/pick"];
+                break;
+            case HomePageDisplayContentCandidate :
+                [httpAddress appendFormat:@"/candidate"];
+                break;
+            case HomePageDisplayContentNews :
+                [httpAddress appendFormat:@"/news"];
+                break;
+            default:
+                break;
+        }
     }
     
     return self;
@@ -55,7 +80,7 @@ typedef void(^TestBlock)(id data,NSError *error);
     
 }
 
-- (void)setBlogsInfo1:(TFHpple *)htmlTFHpple{
+- (void)setBlogsInfo:(TFHpple *)htmlTFHpple{
     
     //获取博客主体信息
     static NSString *recommandCountSpanString = @"//div[@class='post_item']/div[@class='digg']/div[@class='diggit']/span";
@@ -79,7 +104,7 @@ typedef void(^TestBlock)(id data,NSError *error);
     
     for (int i = 0; i<recommandCountElements.count; i++) {
         
-        BlogInfo *blogInfo = [[BlogInfo alloc] init];
+        BlogAndNewsInfo *blogInfo = [[BlogAndNewsInfo alloc] init];
         blogInfo.recommandCount = ((TFHppleElement *)((TFHppleElement *)recommandCountElements[i]).children[0]).content;
         
         blogInfo.blogId = [((TFHppleElement *)recommandCountElements[i]).attributes objectForKey:@"id"];
@@ -104,19 +129,47 @@ typedef void(^TestBlock)(id data,NSError *error);
         [blogInfoArray addObject:blogInfo];
     }
     
+    [self setInfoArray:blogInfoArray];
+    
 }
 
 - (void)setHomePageBlogsInfo:(void (^)(void))block{
     
     [[[NetworkingAPI alloc] init]
-     getRequestDataWithPath:@"http://www.cnblogs.com"
+     getRequestDataWithPath:httpAddress
      withParams:nil
      andBlock: ^(id data, NSError *error) {
          TFHpple *tfhpple =  [IdConvertToSome idConvertToTFHppleForHTML:data];
+         [self setBlogsInfo:tfhpple];
          
-         [self setImportRecommandInfo:tfhpple];
+         if (isLoadBaseInfo) {
+             [self setImportRecommandInfo:tfhpple];
+         }
+         
          block();
      }];
+}
+
+- (void)setInfoArray: (NSMutableArray *)infoArray {
+    
+    switch (currentHomePageDisplayContent) {
+        case HomePageDisplayContentFrist :
+            [GlobalData setBlogsInfoArray:infoArray];
+            break;
+        case HomePageDisplayContentEssence :
+            [GlobalData setBlogsPickInfoArray:infoArray];
+            break;
+        case HomePageDisplayContentCandidate :
+            [GlobalData setBlogsCandidateInfoArray:infoArray];
+            break;
+        case HomePageDisplayContentNews :
+            [GlobalData setNewsInfoArray:infoArray];
+            break;
+        default:
+            break;
+    }
+
+    
 }
 
 

@@ -29,26 +29,26 @@
         [self setBlogAndNewsViewData:(BlogAndNewsInfo *)infos];
     }
     
-    if ([infos isMemberOfClass:[NewsInfo class]]) {
-        [self setNewsViewData:(NewsInfo *)infos];
-    } else if ([infos isMemberOfClass:[BlogInfo class]]) {
-        [self setBlogViewData:(BlogInfo *)infos];
-    }
+//    if ([infos isMemberOfClass:[NewsInfo class]]) {
+//        [self setNewsViewData:(NewsInfo *)infos];
+//    } else if ([infos isMemberOfClass:[BlogInfo class]]) {
+//        [self setBlogViewData:(BlogInfo *)infos];
+//    }
 }
 
-- (void)setBlogViewData:(BlogInfo *)blogInfo {
-    
-    [self setBlogHeadLogoImgByURL:blogInfo.blogAuthorLogoHttpAddress];
-    
-    [self.authorButton setTitle:blogInfo.blogAuthor forState:UIControlStateNormal];
-}
-
-- (void)setNewsViewData:(NewsInfo *)newsInfo {
-    
-    [self setBlogHeadLogoImgByURL:newsInfo.newsTopicIcon];
-    
-    [self.authorButton setTitle:newsInfo.newsSource forState:UIControlStateNormal];
-}
+//- (void)setBlogViewData:(BlogInfo *)blogInfo {
+//    
+//    [self setBlogHeadLogoImgByURL:blogInfo.blogAuthorLogoHttpAddress];
+//    
+//    [self.authorButton setTitle:blogInfo.blogAuthor forState:UIControlStateNormal];
+//}
+//
+//- (void)setNewsViewData:(NewsInfo *)newsInfo {
+//    
+//    [self setBlogHeadLogoImgByURL:newsInfo.newsTopicIcon];
+//    
+//    [self.authorButton setTitle:newsInfo.newsSource forState:UIControlStateNormal];
+//}
 
 - (void)setBlogHeadLogoImgByURL:(NSString *)url {
     
@@ -68,6 +68,10 @@
     
     self.blogHeadLogoImg.layer.masksToBounds = YES;
     self.blogHeadLogoImg.layer.cornerRadius = 25.0f;
+    
+    [self setBlogHeadLogoImgByURL:blogAndNewsInfo.blogAuthorLogoHttpAddress];
+    
+    [self.authorButton setTitle:blogAndNewsInfo.blogAuthor forState:UIControlStateNormal];
     
 }
 

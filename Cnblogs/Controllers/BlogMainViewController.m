@@ -30,6 +30,7 @@
     NSMutableArray *headerButtonArray;
     
     NewsTableViewController *secondVC;
+    NewsTableViewController *threeVC;
 }
 
 - (void)viewDidLoad {
@@ -91,8 +92,6 @@
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(104, 0, 0, 0));
     }];
     
-    secondVC = [NewsTableViewController new];
-    
     currentBlogType = 0;
     currentVC = blogsTableViewController;
     [((UIButton *)[headerButtonArray objectAtIndex:0]) setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];;
@@ -110,9 +109,16 @@
             [self replaceController:button oldController:currentVC newController:blogsTableViewController];
             break;
         case BlogDisplayContentEssence:
+            if (!secondVC) {
+                secondVC = [[NewsTableViewController alloc] initWithHomePageType:HomePageDisplayContentEssence];
+            }
             [self replaceController:button oldController:currentVC newController:secondVC];
             break;
         case BlogDisplayContentCandidate:
+            if (!threeVC) {
+                threeVC = [[NewsTableViewController alloc] initWithHomePageType:HomePageDisplayContentCandidate];
+            }
+            [self replaceController:button oldController:currentVC newController:threeVC];
             break;
         default:
             break;

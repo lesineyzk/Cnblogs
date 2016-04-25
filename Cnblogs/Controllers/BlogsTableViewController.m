@@ -12,7 +12,7 @@
 #import "ImportantRecommandTableViewCell.h"
 #import "GlobalData.h"
 #import "ImportantRecommandBlog.h"
-#import "BlogInfo.h"
+#import "BlogAndNewsInfo.h"
 #import "BlogBodyViewController.h"
 
 static NSString *blogContentCell= @"BlogsContentTableViewCell";
@@ -25,13 +25,11 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
 
 @property (strong,nonatomic) BlogAdapter *blogAdapter;
 
-@property (strong,nonatomic) NSMutableArray *currentBlogInfos;
-
 @end
 
 @implementation BlogsTableViewController {
-    BOOL isLoadHomePage;
-    BOOL isLoadBlogInfo;
+//    BOOL isLoadHomePage;
+//    BOOL isLoadBlogInfo;
     NSLock *_lock;
 }
 
@@ -39,25 +37,27 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    isLoadBlogInfo = NO;
-    isLoadHomePage = NO;
+//    isLoadBlogInfo = NO;
+//    isLoadHomePage = NO;
     //初始化锁对象
     _lock=[[NSLock alloc]init];
     
-    self.homePageAdapter = [[HomePageAdapter alloc]init];
+    self.homePageAdapter = [[HomePageAdapter alloc] initWithHomePageType:HomePageDisplayContentFrist];
     self.blogAdapter = [BlogAdapter new];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     __weak typeof(self) weakSelf = self;
     [self.homePageAdapter setHomePageBlogsInfo:^{
-        isLoadHomePage = YES;
+//        isLoadHomePage = YES;
+        [weakSelf reloadTableViewData];
     }];
     
-    [self.blogAdapter getBlogInfosByPageIndex:@"1" andPageSize:@"20" andBlock:^(NSMutableArray *blogInfos) {
-        weakSelf.currentBlogInfos = blogInfos;
-        isLoadBlogInfo = YES;
-    }];
+//    [self.blogAdapter getBlogInfosByPageIndex:@"1" andPageSize:@"20" andBlock:^(NSMutableArray *blogInfos) {
+//        weakSelf.currentBlogInfos = blogInfos;
+//        isLoadBlogInfo = YES;
+//        [weakSelf reloadTableViewData];
+//    }];
     
     
     UINib *blogContentNib = [UINib nibWithNibName:blogContentCell bundle:nil];
@@ -71,9 +71,7 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
     
     //加锁
     [_lock lock];
-    if (isLoadHomePage && isLoadBlogInfo) {
         [self.tableView reloadData];
-    }
     //使用完解锁
     [_lock unlock];
     
@@ -91,12 +89,12 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [GlobalData getImportentRecommandArray].count + self.currentBlogInfos.count;
+    return [GlobalData getImportentRecommandArray].count + [GlobalData getBlogsInfoArray].count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (![GlobalData getImportentRecommandArray] || !self.currentBlogInfos) {
+    if (![GlobalData getImportentRecommandArray] || ![GlobalData getBlogsInfoArray]) {
         return nil;
     }
     
@@ -109,7 +107,7 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
         [recommandCell setViewData:importantRecommandBlog];
         return recommandCell;
     }else{
-        BlogInfo *blogInfo = ((BlogInfo *)(self.currentBlogInfos[rowIndex]));
+        BlogAndNewsInfo *blogInfo = ((BlogAndNewsInfo *)([GlobalData getBlogsInfoArray][rowIndex]));
         
         BlogsContentTableViewCell *contentCell=[tableView dequeueReusableCellWithIdentifier:blogContentCellIdentifier forIndexPath:indexPath];
         [contentCell setInfoViewData:(id)blogInfo];
@@ -129,7 +127,7 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
         currentSelectBlogId = importantRecommandBlog.blogId;
         currentTitle = importantRecommandBlog.content;
     } else {
-        BlogInfo *blogInfo = ((BlogInfo *)(self.currentBlogInfos[rowIndex]));
+        BlogAndNewsInfo *blogInfo = ((BlogAndNewsInfo *)([GlobalData getBlogsInfoArray][rowIndex]));
         currentSelectBlogId = blogInfo.blogId;
         currentTitle = blogInfo.blogTitle;
     }
