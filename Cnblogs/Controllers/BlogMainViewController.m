@@ -7,12 +7,13 @@
 //
 
 #import "BlogMainViewController.h"
-#import "BlogsTableViewController.h"
+#import "FristPageTableViewController.h"
 #import "View+MASAdditions.h"
 #import "GlobalCommonData.h"
 #import "Enum.h"
+#import "BlogBodyViewController.h"
 
-#import "NewsTableViewController.h"
+#import "BlogTableViewController.h"
 
 @interface BlogMainViewController ()
 
@@ -21,7 +22,7 @@
 
 @implementation BlogMainViewController{
     
-    UIViewController *blogsTableViewController;
+    FristPageTableViewController *blogsTableViewController;
     NSArray *headArray;
     UIScrollView *headScrollView;
     UIViewController *currentVC;
@@ -29,8 +30,8 @@
     UILabel *headerUnderLineLable;
     NSMutableArray *headerButtonArray;
     
-    NewsTableViewController *secondVC;
-    NewsTableViewController *threeVC;
+    BlogTableViewController *secondVC;
+    BlogTableViewController *threeVC;
 }
 
 - (void)viewDidLoad {
@@ -83,7 +84,13 @@
 
 - (void)layoutSubViewControllers {
     
-    blogsTableViewController = [BlogsTableViewController new];
+    __weak typeof(self) weakSelf = self;
+    blogsTableViewController = [FristPageTableViewController new];
+    blogsTableViewController.gotoBlogBodyViewController = ^(NSString *blogId, NSString *blogTitle, WebViewDisplayType dispalyType){
+        
+        [weakSelf gotoBlogBodyViewController:blogId withBlogTitle:blogTitle withDisplayType:dispalyType];
+        
+    };
     
     [self addChildViewController:blogsTableViewController];
     [self.view addSubview:blogsTableViewController.view];
@@ -95,6 +102,19 @@
     currentBlogType = 0;
     currentVC = blogsTableViewController;
     [((UIButton *)[headerButtonArray objectAtIndex:0]) setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];;
+}
+
+- (void)gotoBlogBodyViewController: (NSString *)blogId withBlogTitle:(NSString *)blogTitle withDisplayType:(WebViewDisplayType) dispalyType {
+    
+    BlogBodyViewController *blogBodyViewController = [BlogBodyViewController new];
+    blogBodyViewController.blogId = blogId;
+    blogBodyViewController.blogTitle = blogTitle;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.navigationItem setBackBarButtonItem:backItem];
+    blogBodyViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:blogBodyViewController animated:YES];
+    
 }
 
 - (void)didClickHeadButtonAction:(UIButton *)button

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="XyW-yq-bN3">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -23,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-1039.5" y="95.25"/>
         </scene>
-        <!--News Table View Controller-->
+        <!--Blog Table View Controller-->
         <scene sceneID="NHN-yt-cwJ">
             <objects>
-                <tableViewController id="Yx7-TC-Id3" customClass="NewsTableViewController" sceneMemberID="viewController">
+                <tableViewController id="Yx7-TC-Id3" customClass="BlogTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="HaW-gq-5l3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

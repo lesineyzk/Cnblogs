@@ -6,7 +6,7 @@
 //  Copyright © 2016年 LongHairPig. All rights reserved.
 //
 
-#import "NewsTableViewController.h"
+#import "BlogTableViewController.h"
 #import "BlogsContentTableViewCell.h"
 #import "NewsInfo.h"
 #import "NewsAdapter.h"
@@ -18,7 +18,7 @@
 static NSString *blogContentCell= @"BlogsContentTableViewCell";
 static NSString *blogContentCellIdentifier= @"BlogsContentTableViewCellIdentifier";
 
-@interface NewsTableViewController ()
+@interface BlogTableViewController ()
 
 //@property (strong,nonatomic) NewsAdapter *newsAdapter;
 @property (strong,nonatomic) HomePageAdapter *homePageAdapter;
@@ -29,7 +29,7 @@ static NSString *blogContentCellIdentifier= @"BlogsContentTableViewCellIdentifie
 
 @end
 
-@implementation NewsTableViewController
+@implementation BlogTableViewController
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
     

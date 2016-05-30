@@ -6,7 +6,7 @@
 //  Copyright © 2016年 LongHairPig. All rights reserved.
 //
 
-#import "BlogsTableViewController.h"
+#import "FristPageTableViewController.h"
 #import "HomePageAdapter.h"
 #import "BlogsContentTableViewCell.h"
 #import "ImportantRecommandTableViewCell.h"
@@ -19,7 +19,7 @@ static NSString *blogContentCell= @"BlogsContentTableViewCell";
 static NSString *blogContentCellIdentifier= @"BlogsContentTableViewCellIdentifier";
 static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCellIdentifier";
 
-@interface BlogsTableViewController ()
+@interface FristPageTableViewController ()
 
 @property (strong,nonatomic) HomePageAdapter *homePageAdapter;
 
@@ -27,9 +27,7 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
 
 @end
 
-@implementation BlogsTableViewController {
-//    BOOL isLoadHomePage;
-//    BOOL isLoadBlogInfo;
+@implementation FristPageTableViewController {
     NSLock *_lock;
 }
 
@@ -37,8 +35,6 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    isLoadBlogInfo = NO;
-//    isLoadHomePage = NO;
     //初始化锁对象
     _lock=[[NSLock alloc]init];
     
@@ -49,15 +45,8 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
     
     __weak typeof(self) weakSelf = self;
     [self.homePageAdapter setHomePageBlogsInfo:^{
-//        isLoadHomePage = YES;
         [weakSelf reloadTableViewData];
     }];
-    
-//    [self.blogAdapter getBlogInfosByPageIndex:@"1" andPageSize:@"20" andBlock:^(NSMutableArray *blogInfos) {
-//        weakSelf.currentBlogInfos = blogInfos;
-//        isLoadBlogInfo = YES;
-//        [weakSelf reloadTableViewData];
-//    }];
     
     
     UINib *blogContentNib = [UINib nibWithNibName:blogContentCell bundle:nil];
@@ -71,7 +60,7 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
     
     //加锁
     [_lock lock];
-        [self.tableView reloadData];
+    [self.tableView reloadData];
     //使用完解锁
     [_lock unlock];
     
@@ -132,22 +121,19 @@ static NSString *recommandBlogCellIdentifier = @"ImportantRecommandTableViewCell
         currentTitle = blogInfo.blogTitle;
     }
     if (currentSelectBlogId) {
-        BlogBodyViewController *blogBodyViewController = [BlogBodyViewController new];
-        blogBodyViewController.blogId = currentSelectBlogId;
+        
+        WebViewDisplayType displayType;
         if ([currentTitle containsString:@"[新闻"] || [currentTitle containsString:@"新闻]"] ) {
-            blogBodyViewController.contentType = WebViewDisplayTypeNews;
+            displayType = WebViewDisplayTypeNews;
         } else {
-            blogBodyViewController.contentType = WebViewDisplayTypeBlog;
+            displayType = WebViewDisplayTypeBlog;
         }
-        blogBodyViewController.blogTitle = currentTitle;
         
-        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-        [self.navigationItem setBackBarButtonItem:backItem];
-        blogBodyViewController.hidesBottomBarWhenPushed = YES;
+        if (self.gotoBlogBodyViewController) {
+            self.gotoBlogBodyViewController(currentSelectBlogId,currentTitle,displayType);
+        }
         
-        [self.navigationController pushViewController:blogBodyViewController animated:YES];
     }
-    
 }
 
 #pragma mark 设置每行高度（每行高度可以不一样）

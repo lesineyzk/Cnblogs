@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "Enum.h"
 
-@interface NewsTableViewController : UITableViewController
+@interface BlogTableViewController : UITableViewController
 
 - (instancetype)initWithHomePageType :(HomePageDisplayContent)homePageDisplayContent;
 
